@@ -16,11 +16,11 @@ or assorted multi-plant packs.
 |---|---|
 | `herb.zip` | 23 |
 | `fruit.zip` | 43 |
-| `vegetable.zip` | — |
-| `indoor.zip` | — |
-| `native.zip` | — |
-| `succulent.zip` | — |
-| `uncategorized-edible.zip` | — |
+| `vegetable.zip` | 51 |
+| `indoor.zip` | 75 |
+| `native.zip` | 121 |
+| `succulent.zip` | 61 |
+| `uncategorized-edible.zip` | 196 |
 | `flower.zip` | 143 |
 | `ornamental.zip` | 647 |
 
