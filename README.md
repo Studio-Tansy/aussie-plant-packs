@@ -1,6 +1,6 @@
 # Aussie Plant Packs
 
-Curated, offline plant-pack data for [Garden Tracker](https://github.com/akeelrehman/garden-tracker).
+Curated, offline plant-pack data for the Aussie Garden Care app (https://aussie-garden-care.vercel.app).
 
 Each `<category>.zip` in the [latest release](../../releases/latest) contains one
 `docs/plant-schema.json`-conformant species JSON file per distinct plant, generated
