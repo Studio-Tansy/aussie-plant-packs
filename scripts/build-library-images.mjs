@@ -1,4 +1,5 @@
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import {
   mkdirSync,
   readFileSync,
@@ -76,6 +77,10 @@ function assertNoExif(buffer) {
   }
 }
 
+function sha256(buffer) {
+  return createHash('sha256').update(buffer).digest('hex');
+}
+
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryDirectory = resolve(scriptDirectory, '..');
 const packDirectory = join(repositoryDirectory, 'library-images');
@@ -111,6 +116,15 @@ const manifestImages = source.images.map((image) => {
     ],
     { stdio: 'inherit' },
   );
+  const original = readFileSync(sourcePath);
+  if (!/^[a-f0-9]{64}$/.test(image.sourceSha256)) {
+    throw new Error(`${image.speciesId} has no valid source SHA-256.`);
+  }
+  if (sha256(original) !== image.sourceSha256) {
+    throw new Error(
+      `${image.speciesId} no longer matches its reviewed source SHA-256; review its attribution before rebuilding.`,
+    );
+  }
   execFileSync(
     'ffmpeg',
     [

@@ -13,7 +13,8 @@ node scripts/build-library-images.mjs
 The build requires `curl`, `ffmpeg`, `zip`, and Node.js. It downloads the
 originals into the ignored `library-images/source/` directory, creates
 metadata-free JPEG derivatives in the ignored `library-images/build/`
-directory, verifies the size/dimension limits, and writes
+directory, verifies each downloaded original against its reviewed SHA-256,
+checks the size/dimension limits, and writes
 `library-images/library-images.zip`.
 
 The generated archive contains `_meta/library-image-manifest.json` and an
