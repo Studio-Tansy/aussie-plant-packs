@@ -1,0 +1,72 @@
+{
+  "manifestVersion": 1,
+  "packId": "library-images",
+  "packVersion": "2026-09-01",
+  "images": [
+    {
+      "speciesId": "peace-lily",
+      "filename": "peace-lily.jpg",
+      "sourceDownloadUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Peace_Lily.JPG",
+      "sourceSha256": "d662933fc2da75f26277054d811f31bf02526199d257c45b1b5bb84d96895e55",
+      "attribution": {
+        "creator": "Usha J (UshaJ)",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Peace_Lily.JPG",
+        "modified": "Resized to fit the offline app pack and JPEG re-encoded; metadata removed."
+      }
+    },
+    {
+      "speciesId": "basil",
+      "filename": "basil.jpg",
+      "sourceDownloadUrl": "https://upload.wikimedia.org/wikipedia/commons/7/76/Ocimum_basilicum1.jpg",
+      "sourceSha256": "a1280c9b15a8765499dd1873b891188e3e57f5cd44243a06cb29cb25dce016a8",
+      "attribution": {
+        "creator": "Sebastian Stabinger",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ocimum_basilicum1.jpg",
+        "modified": "Resized to fit the offline app pack and JPEG re-encoded; metadata removed. This adaptation is distributed under CC BY-SA 3.0."
+      }
+    },
+    {
+      "speciesId": "tomato",
+      "filename": "tomato.jpg",
+      "sourceDownloadUrl": "https://upload.wikimedia.org/wikipedia/commons/7/72/Tomato_plant.jpg",
+      "sourceSha256": "6cbcd24a209575d0a76155816076c5e889f6a0e0b33d88a72c075eb559ccafd6",
+      "attribution": {
+        "creator": "Fyrra",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tomato_plant.jpg",
+        "modified": "Resized to fit the offline app pack and JPEG re-encoded; metadata removed. This adaptation is distributed under CC BY-SA 3.0."
+      }
+    },
+    {
+      "speciesId": "kangaroo-paw",
+      "filename": "kangaroo-paw.jpg",
+      "sourceDownloadUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Anigozanthos_flavidus_Albany_2.jpg",
+      "sourceSha256": "bde57145d5763ce050d86e95ece427735391a401b479c2ab90a85431a26decff",
+      "attribution": {
+        "creator": "Cygnis insignis",
+        "license": "Public domain",
+        "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anigozanthos_flavidus_Albany_2.jpg",
+        "modified": "Resized to fit the offline app pack and JPEG re-encoded; metadata removed."
+      }
+    },
+    {
+      "speciesId": "aloe",
+      "filename": "aloe.jpg",
+      "sourceDownloadUrl": "https://upload.wikimedia.org/wikipedia/commons/5/56/Starr_011104-0040_Aloe_vera.jpg",
+      "sourceSha256": "05331d134823f723a5375e096e8323c57835204e0ebcfa42a46f36da36220beb",
+      "attribution": {
+        "creator": "Forest & Kim Starr",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Starr_011104-0040_Aloe_vera.jpg",
+        "modified": "Resized to fit the offline app pack and JPEG re-encoded; metadata removed."
+      }
+    }
+  ]
+}
