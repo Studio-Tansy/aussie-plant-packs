@@ -26,9 +26,9 @@ const USER_AGENT =
   'AussiePlantPacksResearch/1.0 (https://github.com/Studio-Tansy/aussie-plant-packs)';
 const WIKIDATA_BATCH_SIZE = 80;
 const COMMONS_BATCH_SIZE = 40;
-const CATEGORY_QUERY_CONCURRENCY = 3;
-const DOWNLOAD_CONCURRENCY = 3;
-const RETRY_ATTEMPTS = 5;
+const CATEGORY_QUERY_CONCURRENCY = 6;
+const DOWNLOAD_CONCURRENCY = 4;
+const RETRY_ATTEMPTS = 8;
 const API_DELAY_MS = 150;
 const DOWNLOAD_DELAY_MS = 100;
 const SUPPORTED_SOURCE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
@@ -79,6 +79,7 @@ async function fetchWithRetry(url, init, description) {
     try {
       const response = await fetch(url, {
         ...init,
+        signal: AbortSignal.timeout(60_000),
         headers: {
           'User-Agent': USER_AGENT,
           ...(init?.headers ?? {}),
@@ -90,6 +91,11 @@ async function fetchWithRetry(url, init, description) {
         `${description} returned ${response.status}: ${body.slice(0, 300)}`,
       );
       if (response.status < 500 && response.status !== 429) break;
+      if (response.status === 429) {
+        const retryAfter = Number.parseInt(response.headers.get('retry-after') ?? '', 10);
+        await sleep(Number.isFinite(retryAfter) ? retryAfter * 1000 : 30_000 * attempt);
+        continue;
+      }
     } catch (error) {
       lastError = error;
     }
@@ -220,7 +226,10 @@ function candidateScore(candidate, scientificName) {
 
 function selectCandidate(candidates, scientificName) {
   return candidates
-    .filter(Boolean)
+    .filter(
+      (candidate) =>
+        candidate && !UNDESIRABLE_IMAGE_WORDS.test(candidate.commonsTitle),
+    )
     .sort((left, right) => {
       const scoreDifference =
         candidateScore(right, scientificName) - candidateScore(left, scientificName);
@@ -240,7 +249,7 @@ async function queryCommonsFiles(titles) {
       redirects: '1',
       prop: 'imageinfo',
       iiprop: 'url|size|mime|sha1|extmetadata',
-      iiurlwidth: '1600',
+      iiurlwidth: '1024',
       titles: batch.join('|'),
     });
     const request = body.toString();
@@ -284,7 +293,7 @@ async function queryCommonsCategory(scientificName) {
     gcmlimit: '20',
     prop: 'imageinfo',
     iiprop: 'url|size|mime|sha1|extmetadata',
-    iiurlwidth: '1600',
+    iiurlwidth: '1024',
   });
   const request = body.toString();
   const data = await cachedJson('commons-category', request, async () => {
