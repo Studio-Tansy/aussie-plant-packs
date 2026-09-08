@@ -24,15 +24,19 @@ or assorted multi-plant packs.
 | `flower.zip` | 143 |
 | `ornamental.zip` | 647 |
 
-## Optional library image pack
+## Optional library image packs
 
-`library-images.zip` provides five licensed, offline reference images for
-canonical library species. It is deliberately a separate opt-in download:
-species-pack "Download All" actions never include it, and the app never stores
-these replaceable catalog assets as a person's garden photo or in a backup.
+`library-images.zip` preserves the original five licensed, offline reference
+images. Category/chunk companion packs expand researched coverage across the
+canonical catalog while staying below the app's archive and expanded-size
+budgets. They are deliberately separate opt-in downloads: species-pack
+"Download All" actions never include them, and the app never stores these
+replaceable catalog assets as a person's garden photo or in a backup.
 
-Its archive contract, sources, reproducible build, and attribution records are
-in [`library-images/`](library-images/README.md).
+The catalog snapshot, per-species research outcome, archive contract, pinned
+sources, reproducible build, review boundary, and attribution records are in
+[`library-images/`](library-images/README.md). Generated ZIPs are release
+artifacts rather than tracked source.
 
 ## Consuming this data
 

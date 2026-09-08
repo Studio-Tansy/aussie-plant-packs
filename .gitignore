@@ -1,3 +1,5 @@
 /library-images/source/
 /library-images/build/
 /library-images/library-images.zip
+/library-images/cache/
+/library-images/packs/*.zip

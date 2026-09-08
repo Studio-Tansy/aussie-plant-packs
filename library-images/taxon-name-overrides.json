@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "overrides": [
+    {
+      "speciesId": "verbascum-olympicum",
+      "catalogScientificName": "Verbascum olympiticum",
+      "researchName": "Verbascum olympicum",
+      "acceptedName": "Verbascum olympicum",
+      "authority": "GBIF Backbone Taxonomy",
+      "usageKey": 7589232,
+      "usageUrl": "https://www.gbif.org/species/7589232",
+      "acceptedUsageKey": 7589232,
+      "acceptedUsageUrl": "https://www.gbif.org/species/7589232",
+      "rationale": "Human-reviewed correction of the catalog epithet typo “olympiticum” to “olympicum”; GBIF returns the corrected species as the leading same-genus fuzzy match and Commons independently has exact-name files."
+    },
+    {
+      "speciesId": "currant-bush",
+      "catalogScientificName": "Carissa spinorum",
+      "researchName": "Carissa spinarum",
+      "acceptedName": "Carissa spinarum",
+      "authority": "GBIF Backbone Taxonomy",
+      "usageKey": 5536282,
+      "usageUrl": "https://www.gbif.org/species/5536282",
+      "acceptedUsageKey": 5536282,
+      "acceptedUsageUrl": "https://www.gbif.org/species/5536282",
+      "rationale": "Human-reviewed orthographic correction from “spinorum” to the accepted same-genus species epithet “spinarum”; GBIF returns it at 95 confidence and Commons independently has exact-name files."
+    },
+    {
+      "speciesId": "poa-labillardieri",
+      "catalogScientificName": "Poa labillardieri",
+      "researchName": "Poa labillardierei",
+      "acceptedName": "Poa labillardierei",
+      "authority": "GBIF Backbone Taxonomy",
+      "usageKey": 4119391,
+      "usageUrl": "https://www.gbif.org/species/4119391",
+      "acceptedUsageKey": 4119391,
+      "acceptedUsageUrl": "https://www.gbif.org/species/4119391",
+      "rationale": "Human-reviewed orthographic correction from “labillardieri” to “labillardierei”; GBIF returns the corrected same-genus species at 96 confidence and Commons independently has exact-name files."
+    },
+    {
+      "speciesId": "triglochin",
+      "catalogScientificName": "Triglochin procerum",
+      "researchName": "Cycnogeton procerum",
+      "acceptedName": "Cycnogeton procerum",
+      "authority": "GBIF Backbone Taxonomy",
+      "usageKey": 2865313,
+      "usageUrl": "https://www.gbif.org/species/2865313",
+      "acceptedUsageKey": 2865314,
+      "acceptedUsageUrl": "https://www.gbif.org/species/2865314",
+      "rationale": "Human-reviewed nomenclatural resolution: GBIF identifies corrected “Triglochin procera” as a synonym of accepted “Cycnogeton procerum” at 96 confidence; Commons independently has exact accepted-name files."
+    },
+    {
+      "speciesId": "sarcostemma-subterranea",
+      "catalogScientificName": "Sarcostemma subterraneum",
+      "researchName": "Cynanchum vanlessenii",
+      "acceptedName": "Cynanchum vanlessenii",
+      "authority": "GBIF Backbone Taxonomy",
+      "usageKey": 8381951,
+      "usageUrl": "https://www.gbif.org/species/8381951",
+      "acceptedUsageKey": 3573754,
+      "acceptedUsageUrl": "https://www.gbif.org/species/3573754",
+      "rationale": "Human-reviewed nomenclatural resolution: GBIF identifies corrected “Sarcostemma subterranea” as a synonym of accepted “Cynanchum vanlessenii” at 96 confidence; Commons independently has exact accepted-name files."
+    }
+  ]
+}
