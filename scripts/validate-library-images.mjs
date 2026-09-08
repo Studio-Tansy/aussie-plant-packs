@@ -33,6 +33,10 @@ const pilot = readJson(join(packDirectory, 'sources.json'));
 const taxonNameOverrides = readJson(
   join(packDirectory, 'taxon-name-overrides.json'),
 );
+const researchSha256 = canonicalJsonSha256(research);
+const researchById = new Map(
+  research.records.map((record) => [record.speciesId, record]),
+);
 const options = parseCliArguments(process.argv.slice(2));
 const researchOnly = options.has('research-only');
 const errors = [];
@@ -231,9 +235,6 @@ function validateResearch() {
     assert(seenIds.has(species.id), `Canonical species ${species.id} has no research record.`);
   }
 
-  const researchById = new Map(
-    research.records.map((record) => [record.speciesId, record]),
-  );
   for (const image of pilot.images) {
     const record = researchById.get(image.speciesId);
     assert(record?.status === 'matched', `Pilot species ${image.speciesId} is not matched.`);
@@ -295,8 +296,18 @@ function validateArchive(entry) {
   assert(manifest.manifestVersion === 1, `${entry.packId} manifestVersion must be 1.`);
   assert(manifest.packId === entry.packId, `${entry.packId} manifest identity differs.`);
   assert(
-    typeof manifest.packVersion === 'string' && manifest.packVersion.length > 0,
-    `${entry.packId} packVersion is invalid.`,
+    entry.catalogSha256 === research.catalogSha256,
+    `${entry.packId} catalog identity differs.`,
+  );
+  assert(
+    entry.researchSha256 === researchSha256,
+    `${entry.packId} research identity differs.`,
+  );
+  assert(
+    typeof manifest.packVersion === 'string' &&
+      manifest.packVersion.length > 0 &&
+      manifest.packVersion === entry.packVersion,
+    `${entry.packId} packVersion is invalid or differs from the index.`,
   );
   assert(
     Array.isArray(manifest.images) &&
@@ -346,6 +357,16 @@ function validateArchive(entry) {
   assert(expandedBytes <= MAX_EXPANDED_BYTES, `${entry.packId} expanded bytes exceed the limit.`);
   assert(entry.imageCount === manifest.images.length, `${entry.packId} index image count differs.`);
   assert(entry.expandedBytes === expandedBytes, `${entry.packId} index expanded bytes differ.`);
+  assert(
+    entry.sourceSetSha256 ===
+      canonicalJsonSha256(
+        manifest.images.map((image) => [
+          image.speciesId,
+          researchById.get(image.speciesId)?.sourceSha256,
+        ]),
+      ),
+    `${entry.packId} source-pin set differs from current research.`,
+  );
 }
 
 validateResearch();
@@ -355,6 +376,8 @@ if (!researchOnly) {
   if (existsSync(indexPath)) {
     const index = readJson(indexPath);
     const matchedCount = research.records.filter((record) => record.status === 'matched').length;
+    assert(index.catalogSha256 === research.catalogSha256, 'Pack index catalog differs.');
+    assert(index.researchSha256 === researchSha256, 'Pack index research differs.');
     assert(index.matchedSpeciesCount === matchedCount, 'Pack index matched count differs.');
     const seenPackSpecies = new Set();
     for (const entry of index.packs ?? []) {

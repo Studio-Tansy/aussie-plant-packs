@@ -3,6 +3,7 @@ import {
   copyFileSync,
   existsSync,
   mkdirSync,
+  readdirSync,
   readFileSync,
   rmSync,
   statSync,
@@ -24,6 +25,7 @@ import {
   OUTPUT_QUALITIES,
   TARGET_PACK_IMAGE_BYTES,
   assertNoExif,
+  canonicalJsonSha256,
   jpegDimensions,
   parseCliArguments,
   readJson,
@@ -45,6 +47,7 @@ const pilot = readJson(join(packDirectory, 'sources.json'));
 const options = parseCliArguments(process.argv.slice(2));
 const selectedPack = options.get('pack');
 const ARCHIVE_TIMESTAMP = new Date('1980-01-01T00:00:00.000Z');
+const researchSha256 = canonicalJsonSha256(research);
 
 if (selectedPack !== undefined && typeof selectedPack !== 'string') {
   throw new Error('--pack requires a pack ID.');
@@ -254,6 +257,11 @@ function buildArchive(packId, packVersion, records, archivePath, category, chunk
   return {
     packId,
     packVersion,
+    catalogSha256: research.catalogSha256,
+    researchSha256,
+    sourceSetSha256: canonicalJsonSha256(
+      records.map(({ record }) => [record.speciesId, record.sourceSha256]),
+    ),
     category,
     chunk,
     archiveFilename:
@@ -328,7 +336,119 @@ if (selectedDefinitions.length === 0) {
 
 const previousIndexPath = join(outputDirectory, 'index.json');
 const previousIndex = existsSync(previousIndexPath) ? readJson(previousIndexPath) : null;
-const builtById = new Map(previousIndex?.packs?.map((entry) => [entry.packId, entry]) ?? []);
+
+function expectedArchiveFilename(definition) {
+  return definition.archivePath === pilotArchivePath
+    ? 'library-images.zip'
+    : `packs/${definition.packId}.zip`;
+}
+
+function verifyRetainedArchive(definition, entry) {
+  if (!entry) {
+    throw new Error(
+      `Cannot selectively build: retained pack ${definition.packId} is missing from index.json. Run a full build.`,
+    );
+  }
+  const expectedFilename = expectedArchiveFilename(definition);
+  if (
+    entry.archiveFilename !== expectedFilename ||
+    entry.packVersion !== definition.packVersion ||
+    entry.catalogSha256 !== research.catalogSha256 ||
+    entry.researchSha256 !== researchSha256
+  ) {
+    throw new Error(
+      `Cannot selectively build: retained pack ${definition.packId} targets stale research. Run a full build.`,
+    );
+  }
+  if (!existsSync(definition.archivePath)) {
+    throw new Error(
+      `Cannot selectively build: retained archive ${expectedFilename} is missing. Run a full build.`,
+    );
+  }
+  const archive = readFileSync(definition.archivePath);
+  if (
+    archive.byteLength !== entry.archiveBytes ||
+    sha256(archive) !== entry.archiveSha256
+  ) {
+    throw new Error(
+      `Cannot selectively build: retained archive ${expectedFilename} does not match index.json. Run a full build.`,
+    );
+  }
+  const manifest = JSON.parse(
+    execFileSync(
+      'unzip',
+      ['-p', definition.archivePath, '_meta/library-image-manifest.json'],
+      { encoding: 'utf8' },
+    ),
+  );
+  const expectedSources = definition.records.map(({ record }) => [
+    record.speciesId,
+    record.sourceSha256,
+  ]);
+  const retainedSpeciesIds = (manifest.images ?? []).map(
+    (image) => image.speciesId,
+  );
+  if (
+    manifest.packId !== definition.packId ||
+    manifest.packVersion !== definition.packVersion ||
+    entry.sourceSetSha256 !== canonicalJsonSha256(expectedSources) ||
+    JSON.stringify(retainedSpeciesIds) !==
+      JSON.stringify(expectedSources.map(([speciesId]) => speciesId))
+  ) {
+    throw new Error(
+      `Cannot selectively build: retained archive ${expectedFilename} has stale membership or source pins. Run a full build.`,
+    );
+  }
+}
+
+if (typeof selectedPack === 'string') {
+  if (
+    !previousIndex ||
+    previousIndex.catalogSha256 !== research.catalogSha256 ||
+    previousIndex.researchSha256 !== researchSha256
+  ) {
+    throw new Error(
+      'Cannot selectively build against a missing or stale pack index. Run node scripts/build-library-images.mjs without --pack first.',
+    );
+  }
+  const previousById = new Map(
+    previousIndex.packs?.map((entry) => [entry.packId, entry]) ?? [],
+  );
+  const expectedIds = definitions.map((definition) => definition.packId).sort();
+  const previousIds = [...previousById.keys()].sort();
+  if (JSON.stringify(previousIds) !== JSON.stringify(expectedIds)) {
+    throw new Error(
+      'Cannot selectively build because the generated pack set changed. Run a full build.',
+    );
+  }
+  for (const definition of definitions) {
+    if (definition.packId !== selectedPack) {
+      verifyRetainedArchive(definition, previousById.get(definition.packId));
+    }
+  }
+}
+
+if (selectedPack === undefined) {
+  const expectedArchiveNames = new Set(
+    definitions
+      .filter((definition) => definition.archivePath !== pilotArchivePath)
+      .map((definition) => `${definition.packId}.zip`),
+  );
+  for (const filename of readdirSync(outputDirectory)) {
+    if (
+      /^library-images-.+\.zip$/.test(filename) &&
+      !expectedArchiveNames.has(filename)
+    ) {
+      rmSync(join(outputDirectory, filename), { force: true });
+    }
+  }
+}
+
+const builtById = new Map(
+  selectedPack === undefined
+    ? []
+    : (previousIndex.packs ?? []).map((entry) => [entry.packId, entry]),
+);
 for (const definition of selectedDefinitions) {
   const result = buildArchive(
     definition.packId,
@@ -352,6 +472,7 @@ const index = {
   indexVersion: 1,
   packVersion: research.packVersion,
   catalogSha256: research.catalogSha256,
+  researchSha256,
   catalogSpeciesCount: research.catalogSpeciesCount,
   matchedSpeciesCount: matchedRecords.length,
   unresolvedSpeciesCount: research.records.filter((record) => record.status === 'unresolved')

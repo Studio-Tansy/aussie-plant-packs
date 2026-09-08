@@ -26,9 +26,72 @@ assert.equal(
 assert.equal(
   isRedistributableLicense(
     'CC BY 2.5 au',
-    'https://creativecommons.org/licenses/by/2.5/au/',
+    'https://creativecommons.org/licenses/by/2.5/au/deed.en/',
   ),
   true,
+);
+assert.equal(
+  isRedistributableLicense(
+    'CC BY 4.0',
+    'https://creativecommons.org/licenses/by-sa/4.0/',
+  ),
+  false,
+);
+assert.equal(
+  isRedistributableLicense(
+    'CC BY-SA 3.0',
+    'https://creativecommons.org/licenses/by-sa/4.0/',
+  ),
+  false,
+);
+assert.equal(
+  isRedistributableLicense(
+    'CC BY 2.5 au',
+    'https://creativecommons.org/licenses/by/2.5/',
+  ),
+  false,
+);
+assert.equal(
+  isRedistributableLicense(
+    'CC BY',
+    'https://creativecommons.org/licenses/by/4.0/',
+  ),
+  false,
+);
+assert.equal(
+  isRedistributableLicense(
+    'Public domain',
+    'https://creativecommons.org/publicdomain/zero/1.0/',
+  ),
+  false,
+);
+assert.equal(
+  isRedistributableLicense(
+    'CC BY 4.0',
+    'https://creativecommons.org/licenses/by/4.0/deed.evil/path',
+  ),
+  false,
+);
+assert.equal(
+  isRedistributableLicense(
+    'CC BY 4.0',
+    'https://licenses.creativecommons.org/licenses/by/4.0/',
+  ),
+  false,
+);
+assert.equal(
+  isRedistributableLicense(
+    'CC BY 4.0',
+    'https://creativecommons.org/licenses/by/4.0/?source=other',
+  ),
+  false,
+);
+assert.equal(
+  normalizedLicenseUrl(
+    'CC BY 4.0',
+    'https://creativecommons.org/licenses/by-sa/4.0/',
+  ),
+  '',
 );
 assert.equal(
   isRedistributableLicense('GFDL', 'https://www.gnu.org/licenses/fdl-1.3.html'),

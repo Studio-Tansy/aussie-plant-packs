@@ -84,8 +84,13 @@ node scripts/validate-library-images.mjs
 node scripts/validate-with-app-manifest.mjs --app-root /path/to/garden-tracker
 ```
 
-Use `--pack <pack-id>` to rebuild one already planned pack. The original
-`library-images.zip` pilot remains unchanged in identity and membership.
+Use `--pack <pack-id>` to rebuild one already planned pack only after a
+successful full build against the same catalog and research manifest. Before
+retaining any other archive, the builder verifies its archive hash, indexed
+catalog/research identity, exact manifest species membership, and aggregate
+source-pin digest; if anything is stale or missing, the selective build stops
+and requires a full build. The original `library-images.zip` pilot remains
+unchanged in identity and membership.
 Additional outputs use stable category/chunk IDs such as
 `library-images-native-01`. The current matched set produces 35 packs
 (including the pilot), covering 2,153 species. `packs/index.json` is the
@@ -96,7 +101,11 @@ either axis, and are at most 512 KiB. Pack chunks target 20 MiB of image data
 so both the compressed archive and expanded payload remain safely below the
 app's 24 MiB archive / 25 MiB expanded limits. The validator checks the same
 manifest fields, paths, image byte lengths, dimensions, duplicate rules, and
-pack budgets enforced by the app contract.
+pack budgets enforced by the app contract. The release index pins the catalog
+SHA-256 and complete research-manifest SHA-256; each pack entry also pins a
+deterministic digest of its ordered species IDs and researched source
+SHA-256 values. This keeps the strict app manifest-v1 shape unchanged while
+making retained archives provably tied to current research.
 
 ## Review boundary
 

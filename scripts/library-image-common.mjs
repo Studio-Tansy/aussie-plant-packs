@@ -78,49 +78,65 @@ export function isHttpsUrl(value) {
 }
 
 export function isRedistributableLicense(license, licenseUrl) {
-  if (typeof license !== 'string') return false;
-  const normalized = license.trim();
-  const isAllowedName =
-    /^Public domain$/i.test(normalized) ||
-    /^CC0(?:\s+1\.0)?$/i.test(normalized) ||
-    /^CC BY(?:-SA)?(?:\s+(?:1\.0|2\.0|2\.1|2\.5|3\.0|4\.0)(?:\s+[A-Z]{2})?)?$/i.test(
-      normalized,
-    );
-  if (!isAllowedName) return false;
   if (!isHttpsUrl(licenseUrl)) return false;
   const url = new URL(licenseUrl);
-  return (
-    url.hostname === 'creativecommons.org' ||
-    url.hostname.endsWith('.creativecommons.org')
+  if (
+    !['creativecommons.org', 'www.creativecommons.org'].includes(url.hostname) ||
+    url.port ||
+    url.username ||
+    url.password ||
+    url.search ||
+    url.hash
+  ) {
+    return false;
+  }
+  const expectedPath = canonicalLicensePath(license);
+  if (!expectedPath) return false;
+  const pathname = url.pathname.toLocaleLowerCase('en');
+  if (pathname === expectedPath || pathname === expectedPath.slice(0, -1)) {
+    return true;
+  }
+  if (!pathname.startsWith(expectedPath)) return false;
+  return /^(?:deed\.[a-z]{2}(?:[-_][a-z]{2})?|legalcode)\/?$/.test(
+    pathname.slice(expectedPath.length),
   );
 }
 
-export function normalizedLicenseUrl(license, suppliedUrl) {
-  if (isHttpsUrl(suppliedUrl)) {
-    const url = new URL(suppliedUrl);
-    if (
-      url.hostname === 'creativecommons.org' ||
-      url.hostname.endsWith('.creativecommons.org')
-    ) {
-      url.protocol = 'https:';
-      if (!url.pathname.endsWith('/')) url.pathname += '/';
-      url.search = '';
-      url.hash = '';
-      return url.toString();
-    }
+function canonicalLicensePath(license) {
+  if (typeof license !== 'string') return '';
+  const normalized = license.trim();
+  if (/^Public domain$/i.test(normalized)) {
+    return '/publicdomain/mark/1.0/';
   }
-
-  if (/^Public domain$/i.test(license)) {
-    return 'https://creativecommons.org/publicdomain/mark/1.0/';
+  if (/^CC0(?:\s+1\.0)?$/i.test(normalized)) {
+    return '/publicdomain/zero/1.0/';
   }
-  if (/^CC0(?:\s+1\.0)?$/i.test(license)) {
-    return 'https://creativecommons.org/publicdomain/zero/1.0/';
-  }
-  const match = /^CC BY(-SA)?\s+(1\.0|2\.0|2\.1|2\.5|3\.0|4\.0)/i.exec(license);
+  const match =
+    /^CC BY(-SA)?\s+(1\.0|2\.0|2\.1|2\.5|3\.0|4\.0)(?:\s+([A-Z]{2}))?$/i.exec(
+      normalized,
+    );
   if (match) {
-    return `https://creativecommons.org/licenses/by${match[1] ? '-sa' : ''}/${match[2]}/`;
+    const jurisdiction = match[3]
+      ? `${match[3].toLocaleLowerCase('en')}/`
+      : '';
+    return `/licenses/by${match[1] ? '-sa' : ''}/${match[2]}/${jurisdiction}`;
   }
   return '';
+}
+
+export function normalizedLicenseUrl(license, suppliedUrl) {
+  const path = canonicalLicensePath(license);
+  if (!path) return '';
+  if (suppliedUrl !== undefined) {
+    try {
+      const url = new URL(suppliedUrl);
+      if (url.protocol === 'http:') url.protocol = 'https:';
+      if (!isRedistributableLicense(license, url.toString())) return '';
+    } catch {
+      return '';
+    }
+  }
+  return `https://creativecommons.org${path}`;
 }
 
 export function sourceExtension(contentType) {

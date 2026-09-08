@@ -2,6 +2,7 @@
   "indexVersion": 1,
   "packVersion": "2026-09-08",
   "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+  "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
   "catalogSpeciesCount": 2341,
   "matchedSpeciesCount": 2153,
   "unresolvedSpeciesCount": 188,
@@ -10,6 +11,9 @@
     {
       "packId": "library-images",
       "packVersion": "2026-09-01",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "076f20ef2b77e85f529fd350c19a4e041b8da8cc9d1447e0893b72dea3878621",
       "category": "pilot",
       "chunk": 1,
       "archiveFilename": "library-images.zip",
@@ -23,6 +27,9 @@
     {
       "packId": "library-images-flower-01",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "f799e2489c99faa12a193e2ac8000fac3980bfa63c63036d7e9c74634ad286b4",
       "category": "flower",
       "chunk": 1,
       "archiveFilename": "packs/library-images-flower-01.zip",
@@ -36,6 +43,9 @@
     {
       "packId": "library-images-flower-02",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "491983f987038b31ff4c1ff44a21670ca027785f0b755d6578cacb55296a3fa6",
       "category": "flower",
       "chunk": 2,
       "archiveFilename": "packs/library-images-flower-02.zip",
@@ -49,6 +59,9 @@
     {
       "packId": "library-images-flower-03",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "ecfb970651ee4c5ca5d425a9cf371d996e373b4a4330bc6659330b5082c39afc",
       "category": "flower",
       "chunk": 3,
       "archiveFilename": "packs/library-images-flower-03.zip",
@@ -62,6 +75,9 @@
     {
       "packId": "library-images-flower-04",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "623b613d3c55b2ac9048ed1289bc17d80804a0b5cfe6a6da689df76019af451e",
       "category": "flower",
       "chunk": 4,
       "archiveFilename": "packs/library-images-flower-04.zip",
@@ -75,6 +91,9 @@
     {
       "packId": "library-images-fruit-01",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "1d5970b82aaacfccf9dd54baa9d9462b71257de990f0fcc644aa5293da7455f2",
       "category": "fruit",
       "chunk": 1,
       "archiveFilename": "packs/library-images-fruit-01.zip",
@@ -88,6 +107,9 @@
     {
       "packId": "library-images-fruit-02",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "72e00b9f1cc43de460976290e88cf88e69f6d275fc6e363ed1ddb4b694a121d2",
       "category": "fruit",
       "chunk": 2,
       "archiveFilename": "packs/library-images-fruit-02.zip",
@@ -101,6 +123,9 @@
     {
       "packId": "library-images-herb-01",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "1853b20ea52ac16113c32039d03a3d0c14ab2729ef0ec27f0f711a0b170b5cce",
       "category": "herb",
       "chunk": 1,
       "archiveFilename": "packs/library-images-herb-01.zip",
@@ -114,6 +139,9 @@
     {
       "packId": "library-images-herb-02",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "207fb00bd6e001a622e7f6b92da16ec701466eb900043c6edd8e379db6072304",
       "category": "herb",
       "chunk": 2,
       "archiveFilename": "packs/library-images-herb-02.zip",
@@ -127,6 +155,9 @@
     {
       "packId": "library-images-herb-03",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "4b2496a65b281cc079f2ca61c98c58bc30b0564f8f30ae640830c7e62d2a125d",
       "category": "herb",
       "chunk": 3,
       "archiveFilename": "packs/library-images-herb-03.zip",
@@ -140,6 +171,9 @@
     {
       "packId": "library-images-herb-04",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "1a407f8b3b4c6e6fd239c5022759de4b710e36ac5bb5d08b14a1ffdbbf704849",
       "category": "herb",
       "chunk": 4,
       "archiveFilename": "packs/library-images-herb-04.zip",
@@ -153,6 +187,9 @@
     {
       "packId": "library-images-indoor-01",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "732fc844026fff975f803186a44f62b03790349adbca6979213478e4739fd0f7",
       "category": "indoor",
       "chunk": 1,
       "archiveFilename": "packs/library-images-indoor-01.zip",
@@ -166,6 +203,9 @@
     {
       "packId": "library-images-indoor-02",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "18fbf44600ce6d883be09c74e520b904632151c04af1b47842de1f813c11eb47",
       "category": "indoor",
       "chunk": 2,
       "archiveFilename": "packs/library-images-indoor-02.zip",
@@ -179,6 +219,9 @@
     {
       "packId": "library-images-native-01",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "8a1aa5cfc66619c062ce5c26d7134eca2e8caa6fb078b6a80b3bfac7ea4be96f",
       "category": "native",
       "chunk": 1,
       "archiveFilename": "packs/library-images-native-01.zip",
@@ -192,6 +235,9 @@
     {
       "packId": "library-images-native-02",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "d81109ab03acff5a35eeb68cfece367f55c8deb0cdc8da6888ab7e1fb86baf32",
       "category": "native",
       "chunk": 2,
       "archiveFilename": "packs/library-images-native-02.zip",
@@ -205,6 +251,9 @@
     {
       "packId": "library-images-native-03",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "4c70ef70f4b5c54dc51884d4b27b806ecdb7c329910ce33f7870cabaf2774386",
       "category": "native",
       "chunk": 3,
       "archiveFilename": "packs/library-images-native-03.zip",
@@ -218,6 +267,9 @@
     {
       "packId": "library-images-native-04",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "0a9ef37fb103291a0e82ac9124973d0cd6cc672d60d5ae7b554315248fec8081",
       "category": "native",
       "chunk": 4,
       "archiveFilename": "packs/library-images-native-04.zip",
@@ -231,6 +283,9 @@
     {
       "packId": "library-images-ornamental-01",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "fc5bdccff4d9fa1edfd2071e24d10fab26652c667f097905d449acd939cb9ec3",
       "category": "ornamental",
       "chunk": 1,
       "archiveFilename": "packs/library-images-ornamental-01.zip",
@@ -244,6 +299,9 @@
     {
       "packId": "library-images-ornamental-02",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "cb21df215b8f6784175a537c9cfcfc2a3edda7706b314a29902a92522fbe210f",
       "category": "ornamental",
       "chunk": 2,
       "archiveFilename": "packs/library-images-ornamental-02.zip",
@@ -257,6 +315,9 @@
     {
       "packId": "library-images-ornamental-03",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "5cc78e8dfbf5f1ce5d366d3085b08e34c9dc5913ba7cf3273a401c95bc79077f",
       "category": "ornamental",
       "chunk": 3,
       "archiveFilename": "packs/library-images-ornamental-03.zip",
@@ -270,6 +331,9 @@
     {
       "packId": "library-images-ornamental-04",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "f2a36b1567a6e177ab56119f8d97d13a0dc7770dae570e9c86aac553da056793",
       "category": "ornamental",
       "chunk": 4,
       "archiveFilename": "packs/library-images-ornamental-04.zip",
@@ -283,6 +347,9 @@
     {
       "packId": "library-images-ornamental-05",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "fd5dc3a897c8f83ca5d12d06a59779b47658747bbf60e9c34b640ca8cabd08ee",
       "category": "ornamental",
       "chunk": 5,
       "archiveFilename": "packs/library-images-ornamental-05.zip",
@@ -296,6 +363,9 @@
     {
       "packId": "library-images-ornamental-06",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "88b7e19b4f9e9d3cc5ce89ca42776e79f7f3994c5abec9484692cda2a7c308f0",
       "category": "ornamental",
       "chunk": 6,
       "archiveFilename": "packs/library-images-ornamental-06.zip",
@@ -309,6 +379,9 @@
     {
       "packId": "library-images-ornamental-07",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "6ec6009100286bab0e4dfd219f8e0cf0ebf54bf7f8c67c788cb35bca91aa3912",
       "category": "ornamental",
       "chunk": 7,
       "archiveFilename": "packs/library-images-ornamental-07.zip",
@@ -322,6 +395,9 @@
     {
       "packId": "library-images-ornamental-08",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "f9db005d0530715fc3ebff0d2f22bae6ef979c4c73b39b823b499c4e50df6270",
       "category": "ornamental",
       "chunk": 8,
       "archiveFilename": "packs/library-images-ornamental-08.zip",
@@ -335,6 +411,9 @@
     {
       "packId": "library-images-ornamental-09",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "77277d4d60f6a70c3df8e04d717c8d2ce3f5d16ccd9d6dede85233581559d064",
       "category": "ornamental",
       "chunk": 9,
       "archiveFilename": "packs/library-images-ornamental-09.zip",
@@ -348,6 +427,9 @@
     {
       "packId": "library-images-ornamental-10",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "494dc56de8e608d762043b83233027ebaea72c54372bfa9025867b33729ea57b",
       "category": "ornamental",
       "chunk": 10,
       "archiveFilename": "packs/library-images-ornamental-10.zip",
@@ -361,6 +443,9 @@
     {
       "packId": "library-images-succulent-01",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "f596661abc012a2eedaf1cd34cd316b4a82638905116df4b6e85ea5065fc5039",
       "category": "succulent",
       "chunk": 1,
       "archiveFilename": "packs/library-images-succulent-01.zip",
@@ -374,6 +459,9 @@
     {
       "packId": "library-images-succulent-02",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "6b5c9d606614c117fa01debe419481742898ed235ee16103fc2a513ca2bb7340",
       "category": "succulent",
       "chunk": 2,
       "archiveFilename": "packs/library-images-succulent-02.zip",
@@ -387,6 +475,9 @@
     {
       "packId": "library-images-succulent-03",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "5be371a202f79e5ce7179d29bb5a321b80be163d364c75dd359bfeed1912ae89",
       "category": "succulent",
       "chunk": 3,
       "archiveFilename": "packs/library-images-succulent-03.zip",
@@ -400,6 +491,9 @@
     {
       "packId": "library-images-succulent-04",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "ac73f3c0321e4fc81843572cf06168dcc83c1f505bc7b46b57d7aceb6d2ee6fe",
       "category": "succulent",
       "chunk": 4,
       "archiveFilename": "packs/library-images-succulent-04.zip",
@@ -413,6 +507,9 @@
     {
       "packId": "library-images-uncategorized-edible-01",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "e92de1d0d414de62842adb4f53b21eccd610aeccbcb0650a2344374eb617b28f",
       "category": "uncategorized-edible",
       "chunk": 1,
       "archiveFilename": "packs/library-images-uncategorized-edible-01.zip",
@@ -426,6 +523,9 @@
     {
       "packId": "library-images-uncategorized-edible-02",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "3370429507e3f5ebf98cdb039683c92a714cecc52bdc8fca94904f749e55c611",
       "category": "uncategorized-edible",
       "chunk": 2,
       "archiveFilename": "packs/library-images-uncategorized-edible-02.zip",
@@ -439,6 +539,9 @@
     {
       "packId": "library-images-vegetable-01",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "41eef6905aef49ae8bd23edda50e1309910699015e227022df4cb729df56e7b2",
       "category": "vegetable",
       "chunk": 1,
       "archiveFilename": "packs/library-images-vegetable-01.zip",
@@ -452,6 +555,9 @@
     {
       "packId": "library-images-vegetable-02",
       "packVersion": "2026-09-08",
+      "catalogSha256": "debe2392bd18f3248e42a69bf7b62c9ab5f40be793e585e6d24a0a8171f3f1eb",
+      "researchSha256": "d5481e117048b633c1829427e5f5dfee7d152b565bcd4f62b8485a8be4fc5e86",
+      "sourceSetSha256": "04dc586ecfc168729c05e3063920315f76d2e4fb68f5900c0c6120f76d363e9e",
       "category": "vegetable",
       "chunk": 2,
       "archiveFilename": "packs/library-images-vegetable-02.zip",
