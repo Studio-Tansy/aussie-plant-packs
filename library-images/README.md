@@ -46,6 +46,12 @@ category redirects are never released automatically. They remain
 downloaded source bytes are cached locally so reruns are rate-limit friendly.
 Use `--refresh` only when deliberately re-researching upstream metadata.
 
+The 2026-09-07 catalog pass contains 2,341 explicit outcomes: 1,913 matched,
+24 review-needed, and 404 unresolved. Of the matched records, 1,908 are
+automated exact structured matches and the five original pilot records are
+human reviewed. These counts are not a claim of full image coverage; only
+`matched` records appear in generated packs.
+
 Only Public Domain, CC0, CC BY, and CC BY-SA sources are accepted. Every
 matched record captures creator, licence, licence URL, Commons source page,
 source download URL, and a SHA-256 of the exact downloaded bytes.
@@ -63,7 +69,9 @@ node scripts/validate-with-app-manifest.mjs --app-root /path/to/garden-tracker
 Use `--pack <pack-id>` to rebuild one already planned pack. The original
 `library-images.zip` pilot remains unchanged in identity and membership.
 Additional outputs use stable category/chunk IDs such as
-`library-images-native-01`.
+`library-images-native-01`. The current matched set produces 32 packs
+(including the pilot), covering 1,913 species. `packs/index.json` is the
+authoritative pack ID, count, size, and SHA-256 inventory.
 
 All output images are JPEG, have metadata removed, are at most 2,048 pixels on
 either axis, and are at most 512 KiB. Pack chunks target 20 MiB of image data
