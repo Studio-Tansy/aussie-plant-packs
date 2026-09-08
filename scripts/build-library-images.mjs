@@ -6,6 +6,7 @@ import {
   readFileSync,
   rmSync,
   statSync,
+  utimesSync,
   writeFileSync,
 } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -43,6 +44,7 @@ const research = readJson(join(packDirectory, 'research-manifest.json'));
 const pilot = readJson(join(packDirectory, 'sources.json'));
 const options = parseCliArguments(process.argv.slice(2));
 const selectedPack = options.get('pack');
+const ARCHIVE_TIMESTAMP = new Date('1980-01-01T00:00:00.000Z');
 
 if (selectedPack !== undefined && typeof selectedPack !== 'string') {
   throw new Error('--pack requires a pack ID.');
@@ -200,7 +202,9 @@ function buildArchive(packId, packVersion, records, archivePath, category, chunk
   mkdirSync(metadataDirectory, { recursive: true });
 
   const images = records.map(({ record, output }) => {
-    copyFileSync(output.outputPath, join(imageDirectory, record.filename));
+    const imagePath = join(imageDirectory, record.filename);
+    copyFileSync(output.outputPath, imagePath);
+    utimesSync(imagePath, ARCHIVE_TIMESTAMP, ARCHIVE_TIMESTAMP);
     return manifestEntry(record, output);
   });
   const manifest = {
@@ -213,13 +217,26 @@ function buildArchive(packId, packVersion, records, archivePath, category, chunk
   if (manifestBuffer.byteLength > MAX_MANIFEST_BYTES) {
     throw new Error(`${packId} manifest exceeds ${MAX_MANIFEST_BYTES} bytes.`);
   }
-  writeFileSync(join(metadataDirectory, 'library-image-manifest.json'), manifestBuffer);
+  const manifestPath = join(metadataDirectory, 'library-image-manifest.json');
+  writeFileSync(manifestPath, manifestBuffer);
+  utimesSync(manifestPath, ARCHIVE_TIMESTAMP, ARCHIVE_TIMESTAMP);
 
   rmSync(archivePath, { force: true });
-  execFileSync('zip', ['-q', '-r', archivePath, '_meta', 'images'], {
-    cwd: stageDirectory,
-    stdio: 'inherit',
-  });
+  execFileSync(
+    'zip',
+    [
+      '-X',
+      '-q',
+      archivePath,
+      '_meta/library-image-manifest.json',
+      ...images.map((image) => `images/${image.filename}`).sort(),
+    ],
+    {
+      cwd: stageDirectory,
+      env: { ...process.env, TZ: 'UTC' },
+      stdio: 'inherit',
+    },
+  );
   const archive = readFileSync(archivePath);
   const archiveBytes = archive.byteLength;
   const imageBytes = images.reduce((total, image) => total + image.byteSize, 0);
