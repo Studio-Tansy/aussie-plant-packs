@@ -30,6 +30,9 @@ const packDirectory = join(repositoryDirectory, 'library-images');
 const catalog = readJson(join(packDirectory, 'catalog.json'));
 const research = readJson(join(packDirectory, 'research-manifest.json'));
 const pilot = readJson(join(packDirectory, 'sources.json'));
+const taxonNameOverrides = readJson(
+  join(packDirectory, 'taxon-name-overrides.json'),
+);
 const options = parseCliArguments(process.argv.slice(2));
 const researchOnly = options.has('research-only');
 const errors = [];
@@ -45,7 +48,7 @@ function validateResearch() {
     catalog.catalogSha256 === canonicalJsonSha256(catalog.species),
     'Catalog SHA-256 does not match its species snapshot.',
   );
-  assert(research.researchVersion === 1, 'researchVersion must be 1.');
+  assert(research.researchVersion === 2, 'researchVersion must be 2.');
   assert(
     research.catalogSha256 === catalog.catalogSha256,
     'Research manifest targets a different catalog SHA-256.',
@@ -60,6 +63,29 @@ function validateResearch() {
   );
 
   const catalogById = new Map(catalog.species.map((species) => [species.id, species]));
+  assert(taxonNameOverrides.version === 1, 'Taxon-name override version must be 1.');
+  const overridesById = new Map();
+  for (const override of taxonNameOverrides.overrides ?? []) {
+    const label = `taxon-name override ${override.speciesId}`;
+    assert(!overridesById.has(override.speciesId), `${label} is duplicated.`);
+    overridesById.set(override.speciesId, override);
+    assert(
+      catalogById.get(override.speciesId)?.scientificName ===
+        override.catalogScientificName,
+      `${label} does not match the canonical catalog.`,
+    );
+    assert(
+      Number.isInteger(override.usageKey) &&
+        Number.isInteger(override.acceptedUsageKey) &&
+        isHttpsUrl(override.usageUrl) &&
+        isHttpsUrl(override.acceptedUsageUrl),
+      `${label} has invalid authority evidence.`,
+    );
+    assert(
+      typeof override.rationale === 'string' && override.rationale.length > 0,
+      `${label} has no review rationale.`,
+    );
+  }
   const seenIds = new Set();
   for (const record of research.records) {
     const label = `research record ${record.speciesId}`;
@@ -118,6 +144,88 @@ function validateResearch() {
       ),
       `${label} licence is not in the approved redistribution allowlist.`,
     );
+    if (record.taxonResolution !== undefined) {
+      assert(
+        record.taxonResolution.authority === 'GBIF Backbone Taxonomy',
+        `${label} has an unsupported taxon-resolution authority.`,
+      );
+      assert(
+        ['EXACT', 'EXACT_SEARCH'].includes(record.taxonResolution.matchType) &&
+          Number.isInteger(record.taxonResolution.confidence) &&
+          record.taxonResolution.confidence >= 95,
+        `${label} taxon resolution is not an exact high-confidence match.`,
+      );
+      assert(
+        isHttpsUrl(record.taxonResolution.usageUrl) &&
+          isHttpsUrl(record.taxonResolution.acceptedUsageUrl),
+        `${label} taxon-resolution evidence URLs are invalid.`,
+      );
+    }
+    if (record.gbifOccurrenceEvidence !== undefined) {
+      assert(
+        record.matchMethod === 'gbif-exact-taxon-licensed-occurrence-media',
+        `${label} has GBIF occurrence evidence for an unsupported match method.`,
+      );
+      assert(
+        Number.isInteger(record.gbifOccurrenceEvidence.occurrenceKey) &&
+          isHttpsUrl(record.gbifOccurrenceEvidence.occurrenceUrl),
+        `${label} GBIF occurrence evidence is invalid.`,
+      );
+      assert(
+        ['HUMAN_OBSERVATION', 'LIVING_SPECIMEN', 'PRESERVED_SPECIMEN'].includes(
+          record.gbifOccurrenceEvidence.basisOfRecord,
+        ),
+        `${label} GBIF occurrence basis is unsupported.`,
+      );
+      assert(
+        [
+          record.gbifOccurrenceEvidence.taxonKey,
+          record.gbifOccurrenceEvidence.acceptedTaxonKey,
+          record.gbifOccurrenceEvidence.speciesKey,
+        ].includes(record.taxonResolution?.acceptedUsageKey),
+        `${label} GBIF occurrence taxon does not match its accepted resolution.`,
+      );
+      assert(
+        typeof record.gbifOccurrenceEvidence.mediaLicenseEvidence === 'string' &&
+          record.gbifOccurrenceEvidence.mediaLicenseEvidence.length > 0,
+        `${label} GBIF occurrence licence evidence is missing.`,
+      );
+    }
+    if (record.gbifSynonymEvidence !== undefined) {
+      assert(
+        record.gbifSynonymEvidence.authority === 'GBIF Backbone Taxonomy' &&
+          Number.isInteger(record.gbifSynonymEvidence.synonymUsageKey) &&
+          Number.isInteger(record.gbifSynonymEvidence.acceptedUsageKey),
+        `${label} GBIF synonym evidence is invalid.`,
+      );
+      assert(
+        record.gbifSynonymEvidence.acceptedUsageKey ===
+          record.taxonResolution?.acceptedUsageKey,
+        `${label} GBIF synonym does not resolve to its accepted taxon.`,
+      );
+      assert(
+        isHttpsUrl(record.gbifSynonymEvidence.synonymUsageUrl) &&
+          isHttpsUrl(record.gbifSynonymEvidence.acceptedUsageUrl),
+        `${label} GBIF synonym evidence URLs are invalid.`,
+      );
+      assert(
+        typeof record.gbifSynonymEvidence.synonymCanonicalName === 'string' &&
+          record.gbifSynonymEvidence.synonymCanonicalName.length > 0,
+        `${label} GBIF synonym name is missing.`,
+      );
+    }
+    if (record.taxonNameOverride !== undefined) {
+      assert(
+        record.reviewLevel === 'human-reviewed' &&
+          record.matchMethod === 'reviewed-taxon-name-override',
+        `${label} taxon-name override was not marked human-reviewed.`,
+      );
+      assert(
+        JSON.stringify(record.taxonNameOverride) ===
+          JSON.stringify(overridesById.get(record.speciesId)),
+        `${label} taxon-name override does not match the reviewed manifest.`,
+      );
+    }
   }
   for (const species of catalog.species) {
     assert(seenIds.has(species.id), `Canonical species ${species.id} has no research record.`);

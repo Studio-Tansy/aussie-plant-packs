@@ -10,6 +10,8 @@ species data and are never used as a person's own plant photo.
   species record used for this research pass.
 - `sources.json` preserves the five manually reviewed pilot sources, including
   their published source SHA-256 pins.
+- `taxon-name-overrides.json` records the small, human-reviewed set of catalog
+  spelling or nomenclatural corrections, with GBIF evidence and rationale.
 - `research-manifest.json` contains one record for every catalog species.
   `matched` records are eligible for release; `review-needed` and `unresolved`
   records are explicitly excluded from builds.
@@ -33,28 +35,44 @@ Research exact botanical matches and pin the selected source bytes:
 node scripts/research-library-images.mjs --research-date YYYY-MM-DD
 ```
 
-The research script first requires an exact `scientificName` match to Wikidata
-taxon name property P225 and prefers a Commons P18 image. Its fallback uses a
-direct file in a Wikimedia Commons category whose title exactly matches the
-scientific name. An alias/category redirect is accepted automatically only
-when the original name also has one unique exact Wikidata taxon entity; the
-redirect target and rationale are retained in the record.
+The research script starts with an exact `scientificName` match to Wikidata
+taxon name property P225 and prefers a Commons P18 image. It then checks direct
+and recursive Commons taxon categories, exact metadata, and strict tokenized
+filenames. GBIF Backbone exact-name resolution can connect catalog synonyms to
+accepted names and can supply additional scientific synonyms for the same
+accepted usage. Every accepted-name or synonym relationship is retained in the
+record.
 
-Common-name-only results, multiple exact Wikidata entities, and unconfirmed
-category redirects are never released automatically. They remain
-`review-needed` or `unresolved` with a Commons research URL. API responses and
-downloaded source bytes are cached locally so reruns are rate-limit friendly.
-Use `--refresh` only when deliberately re-researching upstream metadata.
+Remaining exact taxa are researched against active iNaturalist taxa and
+research-grade observations whose individual photos have compatible licences.
+As a final exact-taxon fallback, the script can use compatible-licence GBIF
+occurrence media, preferring human observations over living or preserved
+specimens and retaining the occurrence, dataset, taxon, and original licence
+evidence. No runtime hotlinks are produced: selected bytes are downloaded,
+SHA-256 pinned, normalized, and packaged locally.
 
-The 2026-09-07 catalog pass contains 2,341 explicit outcomes: 1,913 matched,
-24 review-needed, and 404 unresolved. Of the matched records, 1,908 are
-automated exact structured matches and the five original pilot records are
-human reviewed. These counts are not a claim of full image coverage; only
-`matched` records appear in generated packs.
+Cultivars are accepted automatically only when the Commons filename contains
+every substantive botanical-name and cultivar-name token. Punctuation and rank
+markers may be normalized, but botanical or cultivar words may not be
+substituted. Broader hybrid groups and generic names remain unresolved.
+
+Common-name-only results, fuzzy taxon matches without a committed reviewed
+override, multiple exact Wikidata entities, and unconfirmed category redirects
+are never released automatically. They remain `review-needed` or `unresolved`
+with an explicit reason. API responses and downloaded source bytes are cached
+locally so reruns are rate-limit friendly. Use `--refresh` only when
+deliberately re-researching upstream metadata.
+
+The 2026-09-08 catalog pass contains 2,341 explicit outcomes: 2,153 matched,
+zero review-needed, and 188 unresolved. Of the matched records, 2,143 are
+automated exact structured matches and ten are human reviewed: the five
+published pilot records plus five documented taxon-name corrections. These
+counts are not a claim of full image coverage; only `matched` records appear in
+generated packs.
 
 Only Public Domain, CC0, CC BY, and CC BY-SA sources are accepted. Every
-matched record captures creator, licence, licence URL, Commons source page,
-source download URL, and a SHA-256 of the exact downloaded bytes.
+matched record captures creator, licence, licence URL, source page, source
+download URL, and a SHA-256 of the exact downloaded bytes.
 
 ## Build and validate
 
@@ -69,8 +87,8 @@ node scripts/validate-with-app-manifest.mjs --app-root /path/to/garden-tracker
 Use `--pack <pack-id>` to rebuild one already planned pack. The original
 `library-images.zip` pilot remains unchanged in identity and membership.
 Additional outputs use stable category/chunk IDs such as
-`library-images-native-01`. The current matched set produces 32 packs
-(including the pilot), covering 1,913 species. `packs/index.json` is the
+`library-images-native-01`. The current matched set produces 35 packs
+(including the pilot), covering 2,153 species. `packs/index.json` is the
 authoritative pack ID, count, size, and SHA-256 inventory.
 
 All output images are JPEG, have metadata removed, are at most 2,048 pixels on
@@ -84,7 +102,8 @@ pack budgets enforced by the app contract.
 
 `automated-exact` means that the botanical link is based on an exact structured
 scientific-name/category relationship, not that a person has reviewed the
-photo composition. `human-reviewed` is currently reserved for the published
-five-image pilot and future explicit overrides. Never change a
+photo composition. `human-reviewed` is reserved for the published five-image pilot and committed
+taxon-name overrides whose rationale and authority URLs have been checked.
+Never change a
 `review-needed` or `unresolved` record to `matched` without documenting the
 taxonomic rationale and confirming the redistribution licence.
